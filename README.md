@@ -45,3 +45,17 @@ OpenSSL version: OpenSSL 1.0.2k  26 Jan 2017
 docker-compose up -d
 docker-compose ps
 ```
+And now you should be able to have a database instance running at `192.168.99.100:5432`, a redis instance running on `192.168.99.100:6379`.
+
+NOTE: The IP address above can be picked up via `docker-machine ip`.
+
+# How to debug
+
+- To get a shell at one container
+    - `$ docker exec -it {container id or container name} bash`
+- To login into the database
+    - `# psql -U postgres`
+- To go into the redis
+    - `# redis-cli`
+
+
