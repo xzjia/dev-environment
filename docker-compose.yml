@@ -15,3 +15,9 @@ services:
     restart: always
     ports:
       - 6379:6379
+
+  fluentd:
+    image: fluent/fluentd:stable
+    restart: always
+    ports:
+      - 24224:24224
