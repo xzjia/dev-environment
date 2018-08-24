@@ -42,11 +42,18 @@ OpenSSL version: OpenSSL 1.0.2k  26 Jan 2017
 # Start up the resources
 
 ```bash
+# The paper work: Clone this repository and cd into it.
+git clone https://github.com/xzjia/dev-environment.git
+cd dev-environment
+
+# Run containers defined in docker-compose.yml
 docker-compose up -d
+
+# Check the container status
 docker-compose ps
 ```
 And now you should be able to have the resources defined in the `docker-compose.yml`.
-
+If you are running Windows, a database instance should be running at `192.168.99.100:5432`, a redis instance running on `192.168.99.100:6379`.
 NOTE: The IP address of those resources' host is not `127.0.0.1`, instead is usually `192.168.99.100`, which can be picked up via `docker-machine ip`.
 
 # How to debug
