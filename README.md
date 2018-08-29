@@ -64,3 +64,33 @@ NOTE: The IP address of those resources' host is not `127.0.0.1`, instead is usu
     - `# psql -U postgres`
 - To go into the redis
     - `# redis-cli`
+
+# Set up Kafka
+
+```bash
+# To create a topic
+$ docker run --net=devenvironment_kafka --rm confluentinc/cp-kafka:5.0.0 \
+  kafka-topics --create --topic foo --partitions 1 --replication-factor 1 \
+  --if-not-exists --zookeeper zookeeper:2181
+
+# To verify the topic creation
+$ docker run --net=devenvironment_kafka --rm confluentinc/cp-kafka:5.0.0 \
+  kafka-topics --describe --topic foo --zookeeper zookeeper:2181
+
+# To publish some simple messages
+$ docker run --net=devenvironment_kafka --rm confluentinc/cp-kafka:5.0.0 \
+bash -c "seq 42 | kafka-console-producer --request-required-acks 1 \
+  --broker-list kafka:9092 --topic foo && echo 'Produced 42 messages.'"
+
+# To see messages in a topic
+$ docker run --net=devenvironment_kafka --rm confluentinc/cp-kafka:5.0.0 \
+  kafka-console-consumer --bootstrap-server kafka:9092 --topic foo --from-beginning --max-messages 42
+
+# To get into an interactive shell
+$ docker run -it --net=devenvironment_kafka --rm confluentinc/cp-kafka:5.0.0 /bin/bash
+# From here, you can just run kafka related commands and see the results
+
+# For a cheat sheet style guide, refer https://gist.github.com/ursuad/e5b8542024a15e4db601f34906b30bb5
+
+
+```
